@@ -9,11 +9,22 @@ import reportWebVitals from './reportWebVitals';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#1976d2', // Blue
     },
     secondary: {
-      main: '#dc004e',
+      main: '#ff9800', // Orange
     },
+    background: {
+      default: '#f4f6f8', // Light Gray for better contrast
+      paper: '#ffffff', // White for cards and surfaces
+    },
+    text: {
+      primary: '#212121', // Dark Gray for main text
+      secondary: '#757575', // Medium Gray for secondary text
+    },
+  },
+  typography: {
+    fontFamily: 'Roboto, Arial, sans-serif',
   },
 });
 
