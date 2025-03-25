@@ -15,13 +15,13 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/explore' element={<Explore />} />
-        <Route path='/project/:id' element={<ProjectDetails />} />
-        <Route path='/create' element={<CreateProject />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/create" element={<CreateProject />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </Router>
