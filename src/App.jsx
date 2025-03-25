@@ -1,29 +1,30 @@
 import React from 'react';
-import './App.css';
-import { Button, Typography, AppBar, Toolbar } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Explore from './pages/Explore';
+import ProjectDetails from './pages/ProjectDetails';
+import CreateProject from './pages/CreateProject';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className='App'>
-      <AppBar position='static'>
-        <Toolbar>
-          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            React + MUI App
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <header className='App-header'>
-        <Typography variant='h4' gutterBottom>
-          GitHub Codespaces <span className='heart'>♥️</span> React
-        </Typography>
-        <Typography variant='body2' className='small'>
-          Edit <code>src/App.jsx</code> and save to reload.
-        </Typography>
-        <Button variant='contained' color='primary' href='https://reactjs.org' target='_blank'>
-          Learn React
-        </Button>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/explore' element={<Explore />} />
+        <Route path='/project/:id' element={<ProjectDetails />} />
+        <Route path='/create' element={<CreateProject />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 
