@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Typography, Grid, Card, CardContent, CardMedia, Container, Box, Skeleton } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const UNSPLASH_ACCESS_KEY = 'YOUR_UNSPLASH_ACCESS_KEY'; // Replace with your Unsplash Access Key
 
@@ -13,6 +14,7 @@ export default function Home() {
   });
 
   const [loading, setLoading] = useState(true); // State to track loading
+  const navigate = useNavigate(); // Initialize useNavigate
 
   // Function to fetch random images from Unsplash
   const fetchImages = async () => {
@@ -106,10 +108,21 @@ export default function Home() {
         <Typography variant="body1" color="textSecondary" gutterBottom>
           Sign up or log in to start your crowdfunding journey.
         </Typography>
-        <Button variant="contained" color="primary" size="large" sx={{ marginRight: '10px' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          sx={{ marginRight: '10px' }}
+          onClick={() => navigate('/login')} // Navigate to Login page
+        >
           Login
         </Button>
-        <Button variant="outlined" color="primary" size="large">
+        <Button
+          variant="outlined"
+          color="primary"
+          size="large"
+          onClick={() => navigate('/signup')} // Navigate to Signup page
+        >
           Sign Up
         </Button>
       </Box>
