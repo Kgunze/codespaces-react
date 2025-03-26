@@ -21,7 +21,7 @@ export default function Home() {
         </Button>
       </Box>
 
-      {/* Categories and Word Cloud */}
+      {/* Explore Categories */}
       <Container sx={{ padding: '30px 20px' }}>
         <Typography variant='h4' gutterBottom>
           Explore Categories
@@ -29,15 +29,17 @@ export default function Home() {
         <Grid container spacing={3}>
           {['Art', 'Technology', 'Music', 'Film', 'Games', 'Design', 'Photography', 'Writing'].map((category) => (
             <Grid item xs={6} sm={4} md={3} key={category}>
-              <Button variant='outlined' fullWidth>
-                {category}
-              </Button>
+              <Typography variant='body1' textAlign='center'>
+                <a href='#' style={{ textDecoration: 'none', color: '#1976d2' }}>
+                  {category}
+                </a>
+              </Typography>
             </Grid>
           ))}
         </Grid>
       </Container>
 
-      {/* Statistics Section */}
+      {/* Crowdfunding Impact */}
       <Box sx={{ padding: '50px 20px', textAlign: 'center', backgroundColor: '#e0f7fa' }}>
         <Typography variant='h4' gutterBottom>
           Crowdfunding Impact
@@ -58,7 +60,7 @@ export default function Home() {
         </Grid>
       </Box>
 
-      {/* Featured Projects (Carousel Style) */}
+      {/* Featured Projects */}
       <Container sx={{ padding: '30px 20px' }}>
         <Typography variant='h4' gutterBottom>
           Featured Projects
@@ -69,7 +71,7 @@ export default function Home() {
               <CardMedia
                 component='img'
                 sx={{ width: 200 }}
-                image='https://via.placeholder.com/200'
+                image='https://via.placeholder.com/200x140?text=Featured+Project'
                 alt='Project Image'
               />
               <CardContent>
@@ -83,7 +85,7 @@ export default function Home() {
         </Carousel>
       </Container>
 
-      {/* Fresh Favourite Section */}
+      {/* Fresh Favourites */}
       <Container sx={{ padding: '30px 20px', backgroundColor: '#f5f5f5' }}>
         <Typography variant='h4' gutterBottom>
           Fresh Favourites
@@ -95,7 +97,7 @@ export default function Home() {
                 <CardMedia
                   component='img'
                   height='140'
-                  image='https://via.placeholder.com/300'
+                  image='https://via.placeholder.com/300x140?text=Favourite+Project'
                   alt='Project Image'
                 />
                 <CardContent>
@@ -110,7 +112,7 @@ export default function Home() {
         </Grid>
       </Container>
 
-      {/* Crowdfunding Tips Section */}
+      {/* Crowdfunding Tips */}
       <Container sx={{ padding: '30px 20px' }}>
         <Typography variant='h4' gutterBottom>
           Crowdfunding Tips
@@ -119,6 +121,12 @@ export default function Home() {
           {[1, 2, 3].map((blog) => (
             <Grid item xs={12} sm={6} md={4} key={blog}>
               <Card>
+                <CardMedia
+                  component='img'
+                  height='140'
+                  image='https://via.placeholder.com/300x140?text=Blog+Post'
+                  alt='Blog Image'
+                />
                 <CardContent>
                   <Typography variant='h6'>Blog Title {blog}</Typography>
                   <Typography variant='body2' color='textSecondary'>
@@ -134,7 +142,7 @@ export default function Home() {
         </Grid>
       </Container>
 
-      {/* Success Story Section */}
+      {/* Success Stories */}
       <Box sx={{ padding: '50px 20px', textAlign: 'center', backgroundColor: '#e8f5e9' }}>
         <Typography variant='h4' gutterBottom>
           Success Stories
@@ -149,7 +157,7 @@ export default function Home() {
                 <CardMedia
                   component='img'
                   height='140'
-                  image='https://via.placeholder.com/300'
+                  image='https://via.placeholder.com/300x140?text=Success+Story'
                   alt='Success Story Image'
                 />
                 <CardContent>
@@ -166,3 +174,4 @@ export default function Home() {
     </div>
   );
 }
+
