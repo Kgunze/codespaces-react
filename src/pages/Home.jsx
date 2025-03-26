@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Typography, Grid, Card, CardContent, CardMedia, Container, Box, Skeleton } from '@mui/material';
+import { Button, Typography, Grid, Card, CardContent, CardMedia, Container, Box, Skeleton, Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add'; // Import Add Icon
 import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
@@ -153,6 +154,20 @@ export default function Home() {
 
       {/* Crowdfunding Tips */}
       {renderCarousel(images.crowdfundingTips, 'Crowdfunding Tips')}
+
+      {/* Floating Create Project Button */}
+      <Fab
+        color="primary"
+        aria-label="create"
+        sx={{
+          position: 'fixed',
+          bottom: 16,
+          right: 16,
+        }}
+        onClick={() => navigate('/create')} // Navigate to Create Project page
+      >
+        <AddIcon />
+      </Fab>
     </div>
   );
 }
