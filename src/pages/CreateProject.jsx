@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import axios from 'axios'; // Import axios for API calls
 
 export default function CreateProject() {
   const [formData, setFormData] = useState({
@@ -39,6 +40,28 @@ export default function CreateProject() {
     e.preventDefault();
     console.log('Project Created:', formData);
     alert('Project Created Successfully!');
+  };
+
+  const handleDownload = async (format) => {
+    try {
+      const response = await axios.post(
+        `/api/download/${format}`,
+        { formData }, // Send form data to the backend
+        { responseType: 'blob' } // Ensure the response is treated as a file
+      );
+
+      // Create a URL for the file and trigger download
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `project.${format.toLowerCase()}`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error(`Error downloading ${format} file:`, error);
+      alert(`Failed to download ${format} file.`);
+    }
   };
 
   return (
@@ -142,6 +165,24 @@ export default function CreateProject() {
         <Button variant="contained" color="primary" size="large" type="submit">
           Create Project
         </Button>
+
+        {/* Download Buttons */}
+        <Box sx={{ marginTop: '20px', display: 'flex', gap: 2 }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDownload('PDF')}
+          >
+            Download PDF
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleDownload('Excel')}
+          >
+            Download Excel
+          </Button>
+        </Box>
       </Box>
     </Container>
   );
