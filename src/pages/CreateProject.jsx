@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
-import axios from 'axios'; // Import axios for API calls
+import axios from 'axios';
 
 export default function CreateProject() {
   const [formData, setFormData] = useState({
@@ -46,11 +46,10 @@ export default function CreateProject() {
     try {
       const response = await axios.post(
         `/api/download/${format}`,
-        { formData }, // Send form data to the backend
-        { responseType: 'blob' } // Ensure the response is treated as a file
+        { formData },
+        { responseType: 'blob' }
       );
 
-      // Create a URL for the file and trigger download
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -63,6 +62,27 @@ export default function CreateProject() {
       alert(`Failed to download ${format} file.`);
     }
   };
+
+  const renderArrayFields = (title, field, labelPrefix) => (
+    <Box sx={{ marginBottom: 3 }}>
+      <Typography variant="h6">{title}</Typography>
+      {formData[field].map((item, index) => (
+        <TextField
+          key={index}
+          label={`${labelPrefix} ${index + 1}`}
+          type="text"
+          variant="outlined"
+          fullWidth
+          value={item}
+          onChange={(e) => handleArrayChange(e, index, field)}
+          sx={{ marginBottom: 2 }}
+        />
+      ))}
+      <Button variant="outlined" onClick={() => addArrayField(field)}>
+        Add {title}
+      </Button>
+    </Box>
+  );
 
   return (
     <Container maxWidth="md" sx={{ marginTop: '50px', marginBottom: '50px' }}>
@@ -111,55 +131,13 @@ export default function CreateProject() {
         />
 
         {/* Funding Milestones */}
-        <Typography variant="h6">Funding Milestones</Typography>
-        {formData.fundingMilestones.map((milestone, index) => (
-          <TextField
-            key={index}
-            label={`Milestone ${index + 1}`}
-            type="text"
-            variant="outlined"
-            fullWidth
-            value={milestone}
-            onChange={(e) => handleArrayChange(e, index, 'fundingMilestones')}
-          />
-        ))}
-        <Button variant="outlined" onClick={() => addArrayField('fundingMilestones')}>
-          Add Funding Milestone
-        </Button>
+        {renderArrayFields('Funding Milestones', 'fundingMilestones', 'Milestone')}
 
         {/* Release Milestones */}
-        <Typography variant="h6">Release Milestones</Typography>
-        {formData.releaseMilestones.map((milestone, index) => (
-          <TextField
-            key={index}
-            label={`Release Milestone ${index + 1}`}
-            type="text"
-            variant="outlined"
-            fullWidth
-            value={milestone}
-            onChange={(e) => handleArrayChange(e, index, 'releaseMilestones')}
-          />
-        ))}
-        <Button variant="outlined" onClick={() => addArrayField('releaseMilestones')}>
-          Add Release Milestone
-        </Button>
+        {renderArrayFields('Release Milestones', 'releaseMilestones', 'Release Milestone')}
 
         {/* Project Members */}
-        <Typography variant="h6">Project Members</Typography>
-        {formData.projectMembers.map((member, index) => (
-          <TextField
-            key={index}
-            label={`Member ${index + 1}`}
-            type="text"
-            variant="outlined"
-            fullWidth
-            value={member}
-            onChange={(e) => handleArrayChange(e, index, 'projectMembers')}
-          />
-        ))}
-        <Button variant="outlined" onClick={() => addArrayField('projectMembers')}>
-          Add Project Member
-        </Button>
+        {renderArrayFields('Project Members', 'projectMembers', 'Member')}
 
         {/* Submit Button */}
         <Button variant="contained" color="primary" size="large" type="submit">

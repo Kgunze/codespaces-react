@@ -29,7 +29,7 @@ export default function Login() {
           variant="text"
           color="secondary"
           size="large"
-          onClick={() => navigate('/signup')} // Navigate to Signup page
+          onClick={() => navigate('/signup')} // Ensure navigation to Signup page
         >
           Don't have an account? Sign Up
         </Button>

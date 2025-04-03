@@ -1,47 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Typography, Grid, Card, CardContent, CardMedia, Container, Box, Skeleton, Fab } from '@mui/material';
+import React from 'react';
+import { Button, Typography, Grid, Card, CardContent, CardMedia, Container, Box, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add'; // Import Add Icon
 import Carousel from 'react-material-ui-carousel';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const UNSPLASH_ACCESS_KEY = 'YOUR_UNSPLASH_ACCESS_KEY'; // Replace with your Unsplash Access Key
-
 export default function Home() {
-  const [images, setImages] = useState({
-    featuredProjects: [],
-    freshFavourites: [],
-    crowdfundingTips: [],
-  });
-
-  const [loading, setLoading] = useState(true); // State to track loading
   const navigate = useNavigate(); // Initialize useNavigate
 
-  // Function to fetch random images from Unsplash
-  const fetchImages = async () => {
-    try {
-      const [featured, favourites, tips] = await Promise.all([
-        axios.get(`https://api.unsplash.com/photos/random?query=project&count=7&client_id=${UNSPLASH_ACCESS_KEY}`),
-        axios.get(`https://api.unsplash.com/photos/random?query=community&count=7&client_id=${UNSPLASH_ACCESS_KEY}`),
-        axios.get(`https://api.unsplash.com/photos/random?query=blog&count=7&client_id=${UNSPLASH_ACCESS_KEY}`),
-      ]);
-
-      setImages({
-        featuredProjects: featured.data,
-        freshFavourites: favourites.data,
-        crowdfundingTips: tips.data,
-      });
-      setLoading(false); // Set loading to false after data is fetched
-    } catch (error) {
-      console.error('Error fetching images from Unsplash:', error);
-      setLoading(false); // Stop loading even if there's an error
-    }
-  };
-
-  // Fetch images on component mount
-  useEffect(() => {
-    fetchImages();
-  }, []);
+  // Sample static data for the carousels
+  const sampleData = [
+    {
+      title: 'Project 1',
+      subtitle: 'Subtitle 1',
+      description: 'This is a description for Project 1.',
+      image: 'https://via.placeholder.com/400x200', // Placeholder image
+    },
+    {
+      title: 'Project 2',
+      subtitle: 'Subtitle 2',
+      description: 'This is a description for Project 2.',
+      image: 'https://via.placeholder.com/400x200', // Placeholder image
+    },
+    {
+      title: 'Project 3',
+      subtitle: 'Subtitle 3',
+      description: 'This is a description for Project 3.',
+      image: 'https://via.placeholder.com/400x200', // Placeholder image
+    },
+  ];
 
   const renderCarousel = (data, sectionTitle) => (
     <Container sx={{ padding: '30px 20px' }}>
@@ -49,52 +35,33 @@ export default function Home() {
         {sectionTitle}
       </Typography>
       <Carousel>
-        {loading
-          ? Array.from({ length: 7 }).map((_, index) => (
-              <Card
-                key={index}
-                sx={{
-                  marginBottom: '20px',
-                  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Add shadow
-                  borderRadius: '8px', // Rounded corners
-                  overflow: 'hidden', // Prevent content overflow
-                }}
-              >
-                <Skeleton variant="rectangular" height={200} />
-                <CardContent>
-                  <Skeleton variant="text" width="60%" sx={{ marginBottom: '10px' }} />
-                  <Skeleton variant="text" width="40%" sx={{ marginBottom: '10px' }} />
-                  <Skeleton variant="text" width="80%" />
-                </CardContent>
-              </Card>
-            ))
-          : data.map((image, index) => (
-              <Card
-                key={index}
-                sx={{
-                  marginBottom: '20px',
-                  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Add shadow
-                  borderRadius: '8px', // Rounded corners
-                  overflow: 'hidden', // Prevent content overflow
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={image.urls.small}
-                  alt={image.alt_description || `${sectionTitle} Image`}
-                />
-                <CardContent>
-                  <Typography variant="h6">Title {index + 1}</Typography>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    Subtitle {index + 1}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
+        {data.map((item, index) => (
+          <Card
+            key={index}
+            sx={{
+              marginBottom: '20px',
+              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Add shadow
+              borderRadius: '8px', // Rounded corners
+              overflow: 'hidden', // Prevent content overflow
+            }}
+          >
+            <CardMedia
+              component="img"
+              height="200"
+              image={item.image}
+              alt={item.title}
+            />
+            <CardContent>
+              <Typography variant="h6">{item.title}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {item.subtitle}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                {item.description}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
       </Carousel>
     </Container>
   );
@@ -114,7 +81,7 @@ export default function Home() {
           color="primary"
           size="large"
           sx={{ marginRight: '10px' }}
-          onClick={() => navigate('/login')} // Navigate to Login page
+          onClick={() => navigate('/login')} // Ensure navigation to Login page
         >
           Login
         </Button>
@@ -122,7 +89,7 @@ export default function Home() {
           variant="outlined"
           color="primary"
           size="large"
-          onClick={() => navigate('/signup')} // Navigate to Signup page
+          onClick={() => navigate('/signup')} // Ensure navigation to Signup page
         >
           Sign Up
         </Button>
@@ -147,13 +114,13 @@ export default function Home() {
       </Container>
 
       {/* Featured Projects */}
-      {renderCarousel(images.featuredProjects, 'Featured Projects')}
+      {renderCarousel(sampleData, 'Featured Projects')}
 
       {/* Fresh Favourites */}
-      {renderCarousel(images.freshFavourites, 'Fresh Favourites')}
+      {renderCarousel(sampleData, 'Fresh Favourites')}
 
       {/* Crowdfunding Tips */}
-      {renderCarousel(images.crowdfundingTips, 'Crowdfunding Tips')}
+      {renderCarousel(sampleData, 'Crowdfunding Tips')}
 
       {/* Floating Create Project Button */}
       <Fab
